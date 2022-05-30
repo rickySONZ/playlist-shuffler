@@ -29,7 +29,7 @@ router.get('/login', async (req, res) => {
       playlist-modify-public`;
 
     res.redirect('https://accounts.spotify.com/authorize?' +
-        querystring.stringify({
+        URLSearchParams.stringify({
             response_type: 'code',
             client_id: process.env.CLIENT_ID,
             scope: scope,

@@ -10,18 +10,13 @@ function App(props) {
   // const authenticatedUser = !!props.currentUser
 
   return (
-    <Router>
-    <div>
-      <Routes>
-        <Route path='/login' component={Login} />
-      </Routes>
-      </div>
-    </Router>
+    <Login {...props} />
+   
   );
 }
 
 const mapStateToProps = (state) => {
-  return ({currentUser: state.authReducer.currentUser}) 
+  return ({currentUser: state?.authReducer?.currentUser}) 
 }
 
 const mapDispatchToProps = dispatch => ({

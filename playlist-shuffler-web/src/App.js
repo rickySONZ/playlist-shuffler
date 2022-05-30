@@ -1,9 +1,9 @@
 import React from 'react'
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Login } from './components/Login/Login.tsx';
 import { loginUser } from './actions/auth';
 import { connect } from 'react-redux';
+import Login from './components/Login/Login.tsx';
 
 function App(props) {
 
@@ -11,12 +11,11 @@ function App(props) {
 
   return (
     <Login {...props} />
-   
   );
 }
 
 const mapStateToProps = (state) => {
-  return ({currentUser: state?.authReducer?.currentUser}) 
+  return ({auth: state?.auth}) 
 }
 
 const mapDispatchToProps = dispatch => ({

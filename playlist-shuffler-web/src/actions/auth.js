@@ -1,6 +1,6 @@
 export const loginUser = () => {
     return (dispatch) => {
-        return fetch('http://localhost:3001/login', {
+        return fetch('http://localhost:3001/api/v1/auth/login', {
         method: "GET",
         headers: {
         'Content-Type': 'application/json',

@@ -1,25 +1,29 @@
 import React from 'react'
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { loginUser } from './actions/auth';
-import { connect } from 'react-redux';
-import Login from './components/Login/Login.tsx';
+import { SpotifyApiContext } from 'react-spotify-api'
+import Cookies from 'js-cookie'
 
-function App(props) {
+import { SpotifyAuth, Scopes } from 'react-spotify-auth'
+import 'react-spotify-auth/dist/index.css'
 
-  // const authenticatedUser = !!props.currentUser
-
+const App = () => {
+    const [token, setToken] = React.useState(Cookies.get("spotifyAuthToken"))
   return (
-    <Login {...props} />
-  );
+    <div className='app'>
+      {token ? (
+        <SpotifyApiContext.Provider value={token}>
+          {/* Your Spotify Code here */}
+          <p>You are authorized with token: {token}</p>
+        </SpotifyApiContext.Provider>
+      ) : (
+        // Display the login page
+        <SpotifyAuth
+          redirectUri='http://localhost:3000/callback'
+          clientID='1a70ba777fec4ffd9633c0c418bdcf39'
+          scopes={[Scopes.userReadPrivate, 'user-read-email']} // either style will work
+          onAccessToken={(token) => setToken(token)}
+        />
+      )}
+    </div>
+  )
 }
-
-const mapStateToProps = (state) => {
-  return ({auth: state?.auth}) 
-}
-
-const mapDispatchToProps = dispatch => ({
-  loginUser: () => dispatch(loginUser())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App
